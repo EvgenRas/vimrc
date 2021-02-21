@@ -3,7 +3,7 @@ filetype plugin indent on "Включает определение типа фа
 set encoding=utf-8 	"Ставит кодировку UTF-8
 set nocompatible 	"Отключает обратную совместимость с Vi
 syntax on 		"Включает подсветку синтаксиса
-
+"Нужно установить перед этим curl и git
 if empty(glob('~/.vim/autoload/plug.vim')) "Если vim-plug не стоит
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   "создать дирректорию
@@ -85,7 +85,9 @@ if (empty($TMUX))
   endif
 endif
 "inoremap <C-Space> <C-o><a>
-set guifont=Fira\ Code\ Light\ Nerd\ Font\ Complete:h16 "Это light версия
+"Нужно перед этим установить в консоли шрифт Fira Code Light Nerd Font
+"Complete
+"set guifont=Fira\ Code\ Light\ Nerd\ Font\ Complete:h16 "Это light версия
 let g:airline_theme='onedark'
 let g:airline#extensions#keymap#enabled = 0 "Не показывать текущий маппинг
 let g:airline_section_z = "\ue0a1:%l/%L Col:%c" "Кастомная графа положения курсора
@@ -277,3 +279,7 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+
+"Устанавливаем npm, clangd
+"запускаем в Vim :CocInstall coc-clangd

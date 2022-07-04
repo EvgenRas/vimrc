@@ -38,7 +38,7 @@ set noswapfile
 set noshowmode
 
 set guioptions= "Отключаем панели прокрутки в GUI
-set showtabline=0 "Отключаем панель табов (окошки FTW)
+"set showtabline=0 "Отключаем панель табов (окошки FTW)
 
 "Сам по себе number показывает справа номера строк
 "relativenumber - нумерацию строк относительно положения курсора
@@ -53,15 +53,23 @@ set wrap linebreak nolist "Данная вариация работает как
 "При желании вы можете заставить Вим насильно разделять...
 "... строчки в самом тексте вот так:
 set textwidth=80 "Где 80 стоит заменить на нужную вам длину строки
+set colorcolumn=80 " Вертикальная полоса ограничения длины строки
 
 set cursorline "А так мы можем подсвечивать строку с курсором
 
 "Если вы используете обычный терминальный Вим, а не NeoVim, то...
 "... для изменения курсора в разных режимах используйте это:
 set ttimeoutlen=10 "Понижаем задержку ввода escape последовательностей
-let &t_SI.="\e[5 q" "SI = режим вставки
-let &t_SR.="\e[3 q" "SR = режим замены
-let &t_EI.="\e[1 q" "EI = нормальный режим
+
+" Добавить echo -en "\e[=2c" в файл .bashrc
+" Insert Mode -> normal cursor (line)
+let &t_SI .= "\e[=1c"
+" Normal Mode -> block cursor
+let &t_EI .= "\e[=2c"
+
+"let &t_SI.="\e[5 q" "SI = режим вставки
+"let &t_SR.="\e[3 q" "SR = режим замены
+"let &t_EI.="\e[1 q" "EI = нормальный режим
 "Где 1 - это мигающий прямоугольник
 "2 - обычный прямоугольник
 "3 - мигающее подчёркивание
@@ -86,6 +94,8 @@ if (empty($TMUX))
 endif
 "inoremap <C-Space> <C-o><a>
 "Нужно перед этим установить в консоли шрифт Fira Code Light Nerd Font
+" Еcли mobaxterm установить на нем шрифт Delugia Nerd Font для отображения
+" иконочного шрифта
 "Complete
 "set guifont=Fira\ Code\ Light\ Nerd\ Font\ Complete:h16 "Это light версия
 let g:airline_theme='onedark'
@@ -99,6 +109,7 @@ highlight LspCxxHlSymNamespace guifg=#E06C75
 
 " air-line
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1 "Включение вкладок
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -127,6 +138,9 @@ let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 
 "mappings
+"Переключение вкладок
+map <C-[> :tabp<CR>
+map <C-]> :tabn<CR>
 
 map <C-n> :NERDTreeToggle<CR>
 
